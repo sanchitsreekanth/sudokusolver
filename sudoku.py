@@ -1,3 +1,16 @@
+board = [
+[5,3,0,0,7,0,0,0,0],
+[6,0,0,1,9,5,0,0,0],
+[0,9,8,0,0,0,0,6,0],
+[8,0,0,0,6,0,0,0,3],
+[4,0,0,8,0,3,0,0,1],
+[7,0,0,0,2,0,0,0,6],
+[0,6,0,0,0,0,2,8,0],
+[0,0,0,4,1,9,0,0,5],
+[0,0,0,0,8,0,0,7,9]
+]
+global l
+l= board
 #check whether the sudoku board is complete or not
 def isfull(board):
     for i in range(9):
@@ -60,11 +73,12 @@ def possiblities(board, i, j):
 def solve(board):
     i = 0
     j = 0
+    global l
     #check if board is full
-    if isfull(board):
-        print('Sudoku solved successfully')
-        display(board)
-        return
+    if isfull(board):     
+        l = [[board[i][j] for j in range(9)] for i in range(9)]
+        
+        
     else:
         for x in range(9):    #check for an empty square
             for y in range(9):
@@ -75,33 +89,14 @@ def solve(board):
           
         #get all possiblities in i,j
         w = possiblities(board, i, j)
-        for x in range (len(w)):
+        for x in range (len(w)):    #substitute possible solutions in empty square
             if not w[x] == 0:
                 board[i][j] = w[x]
-                solve(board)
+                solve(board)    #solve the board after adding that value
         # backtrack
-        board[i][j] = 0                
+        board[i][j] = 0                   
 
-
-def main():
-    board = [
-    [5,3,0,0,7,0,0,0,0],
-    [6,0,0,1,9,5,0,0,0],
-    [0,9,8,0,0,0,0,6,0],
-    [8,0,0,0,6,0,0,0,3],
-    [4,0,0,8,0,3,0,0,1],
-    [7,0,0,0,2,0,0,0,6],
-    [0,6,0,0,0,0,2,8,0],
-    [0,0,0,4,1,9,0,0,5],
-    [0,0,0,0,8,0,0,7,9]
-    ]
-
-    display(board)
-    print('              ')
-    print('              ')
-    solve(board)
-    
-
-if __name__ == "__main__":
-    main()   
-
+def ret():
+    global num
+    num = l
+    return num
