@@ -1,16 +1,5 @@
-board = [
-[5,3,0,0,7,0,0,0,0],
-[6,0,0,1,9,5,0,0,0],
-[0,9,8,0,0,0,0,6,0],
-[8,0,0,0,6,0,0,0,3],
-[4,0,0,8,0,3,0,0,1],
-[7,0,0,0,2,0,0,0,6],
-[0,6,0,0,0,0,2,8,0],
-[0,0,0,4,1,9,0,0,5],
-[0,0,0,0,8,0,0,7,9]
-]
-global l
-l= board
+from web import getboard
+
 #check whether the sudoku board is complete or not
 def isfull(board):
     for i in range(9):
@@ -78,7 +67,6 @@ def solve(board):
     if isfull(board):     
         l = [[board[i][j] for j in range(9)] for i in range(9)]
         
-        
     else:
         for x in range(9):    #check for an empty square
             for y in range(9):
@@ -97,6 +85,13 @@ def solve(board):
         board[i][j] = 0                   
 
 def ret():
-    global num
-    num = l
-    return num
+    return l
+
+
+print('CHOOSE YOUR DIFFICULTY OPTION \n  EASY(1) \n MEDIUM(2) \n HARD(3) \n EVIL(4) \n')
+x = int(input())
+board = getboard(x)
+
+global l
+l= board
+solve(board)
